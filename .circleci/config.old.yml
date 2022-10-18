@@ -82,7 +82,7 @@ commands:
 jobs:
   check:
     executor:
-      class: xlarge
+      class: large
       name: sb_node_14_classic
     steps:
       - git-shallow-clone/checkout_advanced:
@@ -98,7 +98,7 @@ jobs:
             git diff --exit-code
   build:
     executor:
-      class: xlarge
+      class: large
       name: sb_node_14_classic
     steps:
       - git-shallow-clone/checkout_advanced:
