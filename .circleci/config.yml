@@ -9,6 +9,7 @@ workflows:
     jobs:
       - path-filtering/filter:
           name: Create dynamic jobs
+          config-path: .circleci/config.old.yml
+          base-revision: next
           mapping: |
             .*\.[tj]s$ run-js true
-          config-path: .circleci/config.old.yml
