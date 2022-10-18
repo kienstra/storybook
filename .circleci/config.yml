@@ -2,26 +2,14 @@ version: 2.1
 setup: true
 
 orbs:
-  git-shallow-clone: guitarrapc/git-shallow-clone@2.0.3
-  continuation: circleci/continuation@0.1.2
-  node: circleci/node@5.0.3
-
-jobs:
-  setup:
-    executor: continuation/default
-    steps:
-      - git-shallow-clone/checkout_advanced:
-          clone_options: '--depth 1 --verbose'
-      - node/install:
-          node-version: '16.17'
-      - run:
-          name: Generate config
-          command: |
-            node ./scripts/ci/generate.js
-      - continuation/continue:
-          configuration_path: .circleci/config.generated.yml
+  path-filtering: circleci/path-filtering@0.1.3
 
 workflows:
   setup:
     jobs:
-      - setup
+      - path-filtering/filter:
+          name: Create dynamic jobs
+          config-path: .circleci/config.old.yml
+          base-revision: next
+          mapping: |
+            .*\.[tj]s$ run-js true
