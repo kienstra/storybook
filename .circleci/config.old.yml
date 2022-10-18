@@ -265,6 +265,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Compile
+          command: |
+            yarn task --task compile --start-from=auto --no-link --debug
+            git diff --exit-code
+      - run:
           name: Lint
           command: |
             cd code
