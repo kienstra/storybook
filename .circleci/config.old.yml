@@ -1,5 +1,10 @@
 version: 2.1
 
+parameters:
+  run-js:
+    type: boolean
+    default: false
+
 executors:
   sb_node_14_classic:
     parameters:
@@ -435,6 +440,7 @@ workflows:
       - smoke-tests:
           requires:
             - build
+          when: << pipeline.parameters.run-js >>
       - unit-tests:
           requires:
             - build
